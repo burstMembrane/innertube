@@ -1,28 +1,34 @@
-[tool.poetry]
+[project]
 name = "innertube"
 version = "2.1.19"
 description = "Python Client for Google's Private InnerTube API. Works with Youtube, YouTube Music and more!"
-authors = ["Tom Bulled <26026015+tombulled@users.noreply.github.com>"]
-license = "MIT"
+authors = [
+    {name = "Tom Bulled", email = "26026015+tombulled@users.noreply.github.com"}
+]
+license = {text = "MIT"}
 readme = "README.md"
-homepage = "https://pypi.org/project/innertube/"
-repository = "https://github.com/tombulled/innertube"
+requires-python = ">=3.8"
 keywords = ["innertube", "youtube", "youtubei", "python", "api", "client"]
+dependencies = [
+    "httpx>=0.27,<0.28",
+    "mediate>=0.1.2,<0.2",
+]
 
-[tool.poetry.dependencies]
-python = "^3.8"
-httpx = "^0.27"
-mediate = "^0.1.2"
+[project.urls]
+Homepage = "https://pypi.org/project/innertube/"
+Repository = "https://github.com/tombulled/innertube"
 
-[tool.poetry.dev-dependencies]
-black = "^22.1.0"
-mypy = "^0.941"
-pytest = "^7.1.1"
-Flask = "^2.1.2"
+[project.optional-dependencies]
+dev = [
+    "black>=22.1.0,<23",
+    "mypy>=0.941,<1",
+    "pytest>=7.1.1,<8",
+    "Flask>=2.1.2,<3",
+]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.mypy]
 check_untyped_defs = true
