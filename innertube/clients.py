@@ -3,7 +3,10 @@ from typing import List, Optional
 
 import httpx
 import mediate
-from httpx._types import ProxiesTypes
+try:
+    from httpx._types import ProxiesTypes
+except ImportError:
+    from httpx._types import ProxyTypes as ProxiesTypes
 
 from . import api, utils
 from .adaptor import InnerTubeAdaptor
@@ -77,10 +80,14 @@ class InnerTube(Client):
 
             context = ClientContext(**kwargs)
 
+        session_kwargs: dict = {"base_url": config.base_url}
+        if proxies is not None:
+            session_kwargs["proxies"] = proxies
+
         super().__init__(
             adaptor=InnerTubeAdaptor(
                 context=context,
-                session=httpx.Client(base_url=config.base_url, proxies=proxies),
+                session=httpx.Client(**session_kwargs),
             )
         )
 
